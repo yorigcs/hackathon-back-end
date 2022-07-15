@@ -1,4 +1,4 @@
-import createCardSchema from "../../schemas/validateCreateMyCard";
+import createCardSchema from "../../schemas/validateCreateMyCardSchema.js";
 
 const validateCreateMyCard = (req, res, next) => {
     const { title, color, category, content } = req.body;
