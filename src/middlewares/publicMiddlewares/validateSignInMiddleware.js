@@ -10,8 +10,8 @@ const validateSignIn = async (req, res, next) => {
         if (!isRegistered || !isValidPassword) {
             return res.status(422).send("Senha ou email incorretos!")
         }
-
-        res.locals.userData = { name: isRegistered.name, email };
+        
+        res.locals.userData = { email, password, userId: isRegistered._id, name: isRegistered.name};
         next();
 
     } catch (err) {
