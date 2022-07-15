@@ -5,12 +5,13 @@ const validateSignIn = async (req, res, next) => {
     const { email, password } = req.body;
     try {
         const isRegistered = await mongoDB.collection("users").findOne({ email });
-        const isValidPassword = bcrypt.compareSync(password, isRegistered?.password);
-
-        if (!isRegistered || !isValidPassword) {
+        if (!isRegistered) {
             return res.status(422).send("Senha ou email incorretos!")
         }
-        
+        const isValidPassword = bcrypt.compareSync(password, isRegistered.password)
+        if (!isValidPassword) {
+            return res.status(422).send("Senha ou email incorretos!")
+        }
         res.locals.userData = { email, password, userId: isRegistered._id, name: isRegistered.name};
         next();
 
